@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Road Accident Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            background-image: url('https://i.imgur.com/U0wIJBd.gif');
+            background-size: cover;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            color: #ffeb3b;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #ffeb3b;
+        }
+
+        form {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(255, 235, 59, 0.5);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            color: #ffeb3b;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ffeb3b;
+            border-radius: 4px;
+            background-color: #222;
+            color: #fff;
+        }
+
+        button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #d32f2f;
+            transform: scale(1.05);
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+            color: #ffeb3b;
+            text-shadow: 0 0 5px #ffeb3b;
+        }
+
+        .error {
+            color: #f44336;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Road Accident Prediction Application</h1>
+    <form id="predict-form" onsubmit="return validateForm()">
+        <div class="error" id="error-message"></div>
+
+        <label for="Passengers_PersonsInjured_SeriouslyInjured">Passengers Persons Injured (Seriously Injured):</label>
+        <input type="text" id="Passengers_PersonsInjured_SeriouslyInjured" name="Passengers_PersonsInjured_SeriouslyInjured" placeholder="Enter number of seriously injured drivers">
+
+        <label for="Passengers_PersonsInjured_MinorInjured">Passengers Persons Injured (Minor Injured):</label>
+        <input type="text" id="Passengers_PersonsInjured_MinorInjured" name="Passengers_PersonsInjured_MinorInjured" placeholder="Enter number of minor injured drivers">
+
+        <button type="button" onclick="predict()">Predict</button>
+    </form>
+
+    <h2 id="result"></h2>
+
+    <script>
+        function validateForm() {
+            const seriouslyInjured = document.getElementById('Passengers_PersonsInjured_SeriouslyInjured').value.trim();
+            const minorInjured = document.getElementById('Passengers_PersonsInjured_MinorInjured').value.trim();
+            const errorMessage = document.getElementById('error-message');
+
+            if (seriouslyInjured === "" || minorInjured === "") {
+                errorMessage.innerText = "All fields are required.";
+                return false;
+            }
+
+            if (isNaN(seriouslyInjured) || isNaN(minorInjured)) {
+                errorMessage.innerText = "Please enter valid numbers.";
+                return false;
+            }
+
+            if (parseFloat(seriouslyInjured) < 0 || parseFloat(minorInjured) < 0) {
+                errorMessage.innerText = "Please enter positive values.";
+                return false;
+            }
+
+            errorMessage.innerText = "";
+            return true;
+        }
+
+        async function predict() {
+            if (!validateForm()) {
+                return;
+            }
+
+            const form = document.getElementById('predict-form');
+            const formData = new FormData(form);
+            const data = {};
+            formData.forEach((value, key) => { data[key] = parseFloat(value); });
+
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const result = await response.json();
+                document.getElementById('result').innerText = result.Predicted_Passengers_PersonsKilled_Rank && result.Predicted_State ? 'Prediction: ' + result.Predicted_Passengers_PersonsKilled_Rank + ', State: ' + result.Predicted_State : 'Error: ' + (result.error || 'Undefined prediction');
+            } catch (error) {
+                document.getElementById('result').innerText = 'Error: ' + error.message;
+            }
+        }
+    </script>
+</body>
+</html>
