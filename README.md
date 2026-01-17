@@ -1,174 +1,198 @@
-**# Analysis of Fatalities in Road Accidents Due to Ignorance of Helmets and Seat-Belts**  
+Analysis of Fatalities in Road Accidents Due to Ignorance of Helmets and Seat-Belts
+A Case Study
 
-**### A Case Study**
+A data-driven analysis and forecasting project that examines road accident fatalities in India caused by non-compliance with helmet and seatbelt safety measures, using exploratory data analysis, time-series models, and ensemble learning.
 
+🚀 Overview
 
+Road traffic accidents remain a major public safety concern in India, with a significant number of fatalities linked to the non-usage of helmets and seat belts.
+This project analyzes officially published Indian road accident data from 2017–2022 to:
 
-**A data-driven analysis and forecasting project that studies road accident fatalities in India caused by non-compliance with helmet and seatbelt safety measures, using time-series and machine learning models.**
+Understand fatality trends across states and years
 
+Compare helmet vs seatbelt non-compliance impact
 
+Evaluate classical time-series models under real-world data constraints
 
-**---**
+Improve robustness through ensemble modeling
 
+The work is supported by a published research paper and emphasizes interpretability, diagnostics, and realistic model evaluation.
 
+🧠 Methodology
 
-**## 🚀 Overview**
+Data collection from MoRTH and official government sources
 
+Data cleaning and preprocessing
 
+Exploratory Data Analysis (EDA) at national and state levels
 
-**Road traffic accidents remain a major cause of fatalities in India, with a significant portion linked to the non-usage of helmets and seat belts.**  
+Time-series modeling and diagnostics
 
-**This project analyzes officially published Indian road accident data from \*\*2017–2022\*\* to identify trends, study compliance impact, and forecast future fatality risks.**
+Machine learning–based forecasting
 
+Ensemble model construction and comparison
 
+Evaluation using RMSE, MAPE, AIC, and BIC
 
-**The work is supported by a published research paper and focuses on \*\*interpretable models, rigorous evaluation, and real-world data challenges\*\*.**
+🛠️ Tech Stack
 
+Language: Python
 
+Libraries: Pandas, NumPy, Matplotlib, Seaborn
 
-**---**
+Modeling: Statsmodels, Scikit-learn
 
+Environment: Jupyter Notebook
 
+📊 Exploratory Data Analysis (EDA)
 
-**## 🧠 Methods \& Approach**
+The EDA focuses on identifying temporal trends, state-wise disparities, and proportional impact of helmet and seatbelt non-compliance.
 
+Included EDA Visualizations
 
+Total fatalities by year (Helmet vs Seatbelt)
 
-**- Data collection from MoRTH and government sources**  
+State-wise heatmaps (Drivers & Passengers, 2017–2022)
 
-**- Data cleaning, preprocessing, and exploratory analysis**  
+State-wise fatality comparison for 2022
 
-**- Time-series forecasting using:**
+Long-term trend lines for drivers and passengers
 
-  **- Moving Average (MA)**
+Proportional contribution (pie charts) for latest year
 
-  **- Auto-Regressive (AR)**
+These plots highlight regional concentration, temporal variability, and the dominance of helmet-related fatalities.
 
-  **- ARIMA**
+## 📊 Exploratory Data Analysis (EDA)
 
-**- Machine learning models for comparative evaluation**  
+### Year-wise Fatality Trends
+![Year-wise Trend](results/plots/eda_yearwise_trend.png)
 
-**- Ensemble modeling to improve forecasting robustness**  
+### State-wise Fatalities Heatmap (2017–2022)
+![State-wise Heatmap](results/plots/eda_statewise_heatmap.png)
 
-**- Model evaluation using \*\*MAPE, RMSE, AIC, and BIC\*\***
+### State-wise Fatalities in 2022
+![State-wise 2022](results/plots/eda_statewise_2022.png)
 
+### Proportional Contribution (Latest Year)
+![Proportional Contribution](results/plots/eda_proportional_pie.png)
 
 
-**---**
+⏱️ Time-Series Analysis
 
+Classical time-series models were applied to evaluate their effectiveness on noisy, sparse accident data.
 
+Models Used
 
-**## 🛠️ Tech Stack**
+Moving Average (MA)
 
+Auto-Regressive (AR)
 
+ARIMA
 
-**- \*\*Programming Language:\*\* Python**  
+Diagnostic Plots Included
 
-**- \*\*Libraries:\*\* Pandas, NumPy, Matplotlib, Seaborn**  
+Autocorrelation (ACF) and Partial Autocorrelation (PACF)
 
-**- \*\*Modeling \& Analysis:\*\* Statsmodels, Scikit-learn**  
+Trend, seasonality, and residual decomposition
 
-**- \*\*Environment:\*\* Jupyter Notebook**  
+First-order differencing
 
+Actual vs forecasted comparisons
 
+Results show strong volatility, weak stationarity, and sensitivity to outliers, limiting long-horizon forecasting accuracy.
 
-**---**
+## ⏱️ Time-Series Modeling
 
+### ACF & PACF Analysis
+![ACF PACF](results/plots/ts_acf_pacf.png)
 
+### Actual vs Forecasted Fatalities
+![Forecast](results/plots/ts_actual_vs_forecast.png)
 
-**## 📊 Key Findings**
 
+🤖 Machine Learning & Ensemble Modeling
 
+To improve robustness, multiple models were combined and evaluated.
 
-**- Moving Average models captured short-term trends but performed poorly in long-term forecasting**  
+Models
 
-**- AR and ARIMA models showed high variance and large forecasting errors due to data sparsity**  
+ARIMA
 
-**- Helmet non-compliance trends were slightly more predictable than seatbelt-related fatalities**  
+Gradient Boosting (GBM)
 
-**- High MAPE values highlighted the limitations of traditional models on real-world accident data**  
+LSTM
 
+Weighted Ensemble
 
+Evaluation & Diagnostics
 
-**---**
+Residual distribution comparison
 
+Q–Q plots for normality assessment
 
+RMSE comparison across models
 
-**## 📂 Project Structure**
+MAPE comparison across models
 
+Residual trend analysis for ensemble model
 
+The ensemble approach reduced variance compared to individual models but still reflected inherent data limitations.
 
-**road-accident-fatality-analysis/**
+## 🤖 Ensemble Modeling & Evaluation
 
-**│**
+### RMSE Comparison Across Models
+![RMSE](results/plots/ensemble_rmse.png)
 
-**├── data/ # raw and processed datasets**
+### Ensemble Model Predictions
+![Ensemble](results/plots/ensemble_prediction.png)
 
-**├── notebooks/ # data cleaning, EDA, modeling notebooks**
 
-**├── src/ # reusable preprocessing and modeling scripts**
+📌 Key Findings
 
-**├── results/ # plots, figures, and evaluation outputs**
+Helmet non-compliance contributes significantly more to fatalities than seatbelt non-compliance
 
-**├── paper/ # published research paper (PDF)**
+Traditional time-series models struggle with real-world accident data variability
 
-**└── README.md**
+High MAPE values indicate poor reliability for long-term forecasting
 
+Ensemble models improve stability but cannot fully overcome data sparsity
 
+Model diagnostics are critical for responsible interpretation
 
+📂 Project Structure
+road-accident-fatality-analysis/
+│
+├── data/            # processed datasets
+├── notebooks/       # EDA, time-series, ensemble modeling
+├── src/             # reusable preprocessing & modeling code
+├── results/         # plots, figures, evaluation outputs
+├── paper/           # published research paper (PDF)
+└── README.md
 
+📄 Research Paper
 
-**---**
+This project is based on the paper:
 
+“Analysis of Fatalities in Road Accidents Due to Ignorance of Helmets and Seat-Belts: A Case Study”
 
+📄 Available in the paper/ directory.
 
-**## 📄 Research Paper**
+🎓 What I Learned
 
+Real-world time-series data is highly noisy and non-stationary
 
+Model accuracy alone is insufficient without diagnostics
 
-**This project is based on the research paper:**
+Classical models have limited applicability to policy-scale forecasting
 
+Ensemble learning improves robustness but is not a silver bullet
 
+🔮 Future Scope
 
-**\*\*“Analysis of Fatalities in Road Accidents Due to Ignorance of Helmets and Seat-Belts: A Case Study”\*\***
+Incorporating richer temporal and regional features
 
+Improved deep learning architectures with external covariates
 
+Interactive dashboard for policy and safety analysis
 
-**The full paper is available in the `paper/` directory.**
-
-
-
-**---**
-
-
-
-**## 🔍 What I Learned**
-
-
-
-**- Real-world time-series data is highly noisy and difficult to model**  
-
-**- Forecasting accuracy is strongly affected by data sparsity and variance**  
-
-**- Model diagnostics are as important as prediction accuracy**  
-
-**- Ensemble approaches can improve stability but are not a silver bullet**  
-
-
-
-**---**
-
-
-
-**## 🔮 Future Improvements**
-
-
-
-**- Integration of deep learning models such as LSTM**  
-
-**- Inclusion of more granular and recent datasets**  
-
-**- Deployment as an interactive dashboard for policy analysis**  
-
-
-
+Integration of post-2022 accident datasets
